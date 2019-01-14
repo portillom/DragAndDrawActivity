@@ -1,6 +1,7 @@
 package com.michaelportillo.android.draganddrawactivity;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.util.AttributeSet;
@@ -40,6 +41,21 @@ public class BoxDrawingView extends View {
         //Paint the background off-white
         mBackgroundPaint = new Paint();
         mBackgroundPaint.setColor(0xfff8efe0);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas){
+        //Fill the background
+        canvas.drawPaint(mBackgroundPaint);
+
+        for (Box box : mBoxen) {
+            float left = Math.min(box.getOrgin().x, box.getCurrent().x);
+            float right = Math.max(box.getOrgin().x, box.getCurrent().x);
+            float top = Math.min(box.getOrgin().y, box.getCurrent().y);
+            float bottom = Math.max(box.getOrgin().y, box.getCurrent().y);
+
+            canvas.drawRect(left, top, right, bottom, mBoxPaint);
+        }
     }
 
     @Override
